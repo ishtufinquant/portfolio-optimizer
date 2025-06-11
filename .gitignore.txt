@@ -1,0 +1,46 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+env/
+venv/
+ENV/
+
+# VS Code settings
+.vscode/
+
+# Logs and temporary files
+*.log
+*.tmp
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Python packaging
+*.egg
+*.egg-info/
+dist/
+build/
+
+# Jupyter Notebooks (if used)
+.ipynb_checkpoints/
+
+# IDE settings
+.idea/
+
+# Pytest
+.pytest_cache/
+
+# Spyder
+.spyderproject
+.spyderworkspace
+
+# Environment / secrets (if used)
+.env
+
+# Do NOT ignore important output files
+!assets/efficient_frontier.png
