@@ -5,8 +5,9 @@ This project demonstrates how to use Python to perform **portfolio optimization*
 - Downloading stock price data with `yfinance`
 - Calculating daily returns, mean returns, and the covariance matrix
 - Simulating 1,000 random portfolios to visualize the risk/return trade-off
-- Identifying the **maximum Sharpe ratio** and **minimum volatility** portfolios
-- Optimizing the portfolio using `scipy.optimize.minimize` with constraints
+- Optimizing the portfolio using **two methods**:
+  - **Method 1**: Simulation-based (brute-force)
+  - **Method 2**: SLSQP-based (constrained optimization using `scipy.optimize.minimize`)
 
 ---
 
@@ -34,44 +35,44 @@ Historical data is downloaded for the period from **2020-01-01** to **2024-12-31
 
 ---
 
-## 📈 Workflow Overview
+# ⚙️ Method 1: Portfolio Simulation (Random Portfolios)
+
+This approach:
+- Randomly generates 1,000 portfolio weight combinations
+- Calculates expected return, volatility, and Sharpe ratio for each
+- Identifies:
+  - 📍 **Max Sharpe Ratio Portfolio**
+  - 📍 **Minimum Volatility Portfolio**
+
+---
+
+## 🔄 Workflow Overview
 
 1. **Download Price Data**  
-   Use `yfinance` to fetch historical closing prices for selected stocks.
+   Use `yfinance` to fetch historical closing prices.
 
 2. **Calculate Daily Returns**  
-   Compute percentage change in prices to get daily returns.
+   Compute daily percentage change.
 
 3. **Estimate Statistics**  
    - Mean returns  
-   - Covariance matrix of returns
+   - Covariance matrix
 
 4. **Simulate 1,000 Portfolios**  
-   - Generate random weight combinations  
-   - Calculate expected return, volatility, and Sharpe ratio for each  
-   - Identify the portfolio with max Sharpe ratio and min volatility
+   - Random weight combinations  
+   - Portfolio return, volatility, Sharpe ratio
 
 5. **Visualize Efficient Frontier**  
-   - Plot risk vs. return  
-   - Highlight optimal portfolios
-
-6. **Optimize Portfolio**  
-   - Use `scipy.optimize.minimize` to find the weight combination that maximizes Sharpe ratio  
-   - Apply constraints:  
-     - Sum of weights = 1  
-     - No weight > 40% (0.40) for any stock
-
-7. **Display Optimized Results**  
-   - Optimized weights  
-   - Portfolio return and volatility
+   - Risk vs return plot  
+   - Highlight max Sharpe and min volatility
 
 ---
 
 ## 📊 Visualization
 
-The plot includes:
+This plot shows:
 
-- 1,000 simulated portfolios (colored by Sharpe ratio)  
+- 1,000 simulated portfolios, colored by Sharpe ratio  
 - 🔴 Red star = Portfolio with **max Sharpe ratio**  
 - 🔵 Blue star = Portfolio with **min volatility**
 
@@ -79,7 +80,21 @@ The plot includes:
 
 ---
 
+# ⚙️ Method 2: Portfolio Optimization with SLSQP
+
+This approach:
+- Uses `scipy.optimize.minimize` (Sequential Least Squares Programming)  
+- Solves for **maximum Sharpe ratio** under realistic constraints
+
+### Constraints:
+- Portfolio weights must sum to 1  
+- No stock may exceed 40% of the portfolio
+
+---
+
 ## ✅ Sample Output
+
+📌 Output from `scipy.optimize.minimize` (SLSQP method):
 
 ```
 Optimized Portfolio Weights: [0.20, 0.15, 0.30, 0.25, 0.10]
@@ -89,27 +104,46 @@ Optimized Portfolio Volatility: 0.01345
 
 ---
 
-## 🚀 How to Run
+## 👤 Real-World Use Case (Client-Style)
 
-### Clone the repository
-```
-git clone https://github.com/yourusername/portfolio-optimizer.git
+A client wants to allocate capital across 5 stocks (JNJ, AMZN, JPM, AAPL, XOM) with these goals:
+
+- **Maximize risk-adjusted return (Sharpe ratio)**
+- **Limit any single stock to ≤ 40% of the portfolio**
+- **Keep the total investment sum to 100%**
+
+This project uses `scipy.optimize.minimize` (SLSQP method) to:
+
+- Apply these real-world constraints
+- Find the optimal allocation
+- Return exact weights, expected return, and volatility
+
+📊 This approach is highly practical for asset managers and analysts building production-grade portfolios.
+
+---
+
+## 🚀 How to Run and Customize
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/ishtufinquant/portfolio-optimizer.git
 cd portfolio-optimizer
 ```
 
-### Install dependencies
-```
+### 2. Install dependencies
+
+```bash
 pip install yfinance pandas numpy matplotlib scipy
 ```
 
-### Run the script  
-The script uses a clean `main()` function structure.
-```
+### 3. Run the script
+
+```bash
 python portfolio_optimization.py
 ```
 
-📌 Note: This version uses a self-contained `main()` function and performs simulation + optimization.  
-Future updates will modularize the code and add CLI/config support.
+📌 The script runs both the simulation and optimization methods with a clean `main()` function. Future versions will modularize the code and support CLI inputs.
 
 ---
 
@@ -138,3 +172,4 @@ portfolio-optimizer/
 ## 📄 License
 
 This project is licensed under the **MIT License**. You are free to use, modify, and distribute it.
+
