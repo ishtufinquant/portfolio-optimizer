@@ -14,10 +14,10 @@ This project demonstrates how to use Python to perform **portfolio optimization*
 ## 🛠️ Technologies Used
 
 - Python
-- yfinance – for fetching historical stock data
-- pandas and numpy – for data handling
-- matplotlib – for plotting the results
-- scipy.optimize – for portfolio optimization
+- `yfinance` – for fetching historical stock data
+- `pandas` and `numpy` – for data handling
+- `matplotlib` – for plotting the results
+- `scipy.optimize` – for portfolio optimization
 
 ---
 
@@ -68,6 +68,18 @@ This approach:
 
 ---
 
+## ✅ Sample Output (Method 1 – Simulation)
+
+📌 Output from **1,000 simulated portfolios**:
+
+```
+Optimized Portfolio Weights: [0.20, 0.15, 0.30, 0.25, 0.10]
+Optimized Portfolio Return: 0.00091
+Optimized Portfolio Volatility: 0.01345
+```
+
+---
+
 ## 📊 Visualization
 
 This plot shows:
@@ -84,7 +96,7 @@ This plot shows:
 
 This approach:
 - Uses `scipy.optimize.minimize` (Sequential Least Squares Programming)  
-- Solves for **maximum Sharpe ratio** under realistic constraints
+- Solves for **maximum Sharpe ratio** under real-world constraints
 
 ### Constraints:
 - Portfolio weights must sum to 1  
@@ -92,14 +104,20 @@ This approach:
 
 ---
 
-## ✅ Sample Output
+## ✅ Sample Output (Method 2 – SLSQP)
 
-📌 Output from `scipy.optimize.minimize` (SLSQP method):
+📌 Output from `scipy.optimize.minimize`:
 
 ```
-Optimized Portfolio Weights: [0.20, 0.15, 0.30, 0.25, 0.10]
-Optimized Portfolio Return: 0.00091
-Optimized Portfolio Volatility: 0.01345
+Optimized Portfolio Weights:
+JNJ  : 0.0000
+AMZN : 0.4000
+JPM  : 0.2000
+AAPL : 0.4000
+XOM  : 0.0000
+
+Expected Portfolio Return    : 0.000997
+Expected Portfolio Volatility: 0.017179
 ```
 
 ---
@@ -143,7 +161,8 @@ pip install yfinance pandas numpy matplotlib scipy
 python portfolio_optimization.py
 ```
 
-📌 The script runs both the simulation and optimization methods with a clean `main()` function. Future versions will modularize the code and support CLI inputs.
+📌 The script runs both the simulation and optimization methods in a straightforward top-down flow.  
+Future versions will modularize the code and may include CLI support or a `main()` wrapper.
 
 ---
 
@@ -172,4 +191,3 @@ portfolio-optimizer/
 ## 📄 License
 
 This project is licensed under the **MIT License**. You are free to use, modify, and distribute it.
-
